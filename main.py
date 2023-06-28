@@ -1,3 +1,7 @@
+"""
+This is a FastAPI app that serves as a webhook for LINE Messenger.
+It uses the embedchain library to handle incoming messages and generate appropriate responses.
+"""
 # -*- coding: utf-8 -*-
 
 #  Licensed under the Apache License, Version 2.0 (the "License"); you may
@@ -14,7 +18,6 @@
 
 import os
 import sys
-import json
 
 import aiohttp
 
@@ -56,21 +59,30 @@ parser = WebhookParser(channel_secret)
 # Embedchain
 naval_chat_bot = App()
 
-# Embed Online Resources
-# naval_chat_bot.add(
-#     "youtube_video", "https://www.youtube.com/watch?v=3qHkcs3kG44")
-# naval_chat_bot.add(
-#     "pdf_file", "https://navalmanack.s3.amazonaws.com/Eric-Jorgenson_The-Almanack-of-Naval-Ravikant_Final.pdf")
 naval_chat_bot.add(
     "web_page", "https://tw.linebiz.com/column/LINEOA-2023-Price-Plan/")
+
 naval_chat_bot.add(
     "web_page", "https://tw.linebiz.com/column/stepmessage/")
+
 naval_chat_bot.add(
     "web_page", "https://tw.linebiz.com/column/LAP-Maximize-OA-Strategy/")
 
 
 @app.post("/callback")
 async def handle_callback(request: Request):
+    """
+    Handle the callback from LINE Messenger.
+
+    This function validates the request from LINE Messenger, 
+    parses the incoming events and sends the appropriate response.
+
+    Args:
+        request (Request): The incoming request from LINE Messenger.
+
+    Returns:
+        str: Returns 'OK' after processing the events.
+    """
     signature = request.headers['X-Line-Signature']
 
     # get request body as text
@@ -79,8 +91,9 @@ async def handle_callback(request: Request):
 
     try:
         events = parser.parse(body, signature)
-    except InvalidSignatureError:
-        raise HTTPException(status_code=400, detail="Invalid signature")
+    except InvalidSignatureError as exc:
+        raise HTTPException(
+            status_code=400, detail="Invalid signature") from exc
 
     for event in events:
         if not isinstance(event, MessageEvent):

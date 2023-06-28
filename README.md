@@ -1,59 +1,46 @@
-Utilizing a LINE Bot integrated with LangChain in Python to assist with stock price inquiries
-==============
+# LINEBot:  透過 EmbedChain 來建立客服小幫手（範例）
 
-![](./img/bot2.jpg)
+這是一個使用 FastAPI 建立的 LINE ChatBotk。此應用程式使用 embedchain 函式庫處理傳入的訊息並產生適當的回應。
 
-Installation and Usage
-=============
+![](./img/bot1.jpg)
 
-### 1. Got A LINE Bot API devloper account
+## 安裝與設定
 
-- [Make sure you already registered on LINE developer console](https://developers.line.biz/console/), if you need use LINE Bot.
+1. **安裝專案依賴**
 
-- Create new Messaging Channel
-- Get `Channel Secret` on "Basic Setting" tab.
-- Issue `Channel Access Token` on "Messaging API" tab.
-- Open LINE OA manager from "Basic Setting" tab.
-- Go to Reply setting on OA manager, enable "webhook"
+   使用以下命令安裝專案的所有依賴：
 
-### 2. To obtain an OpenAI API token
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-- Register for an account on the OpenAI website at <https://openai.com/api/>.
-- Once you have an account, you can find your [API Keys](https://platform.openai.com/account/api-keys) in the account settings page.
-- If you want to use the OpenAI API for development, you can find more information and instructions in the API documentation page.
-- Please note that the OpenAI API is only available to users who meet certain criteria.
-- You can find more information about the usage conditions and limitations of the API in the API documentation page.
+2. **設定環境變數**
 
-### 3. Deploy this on Web Platform
+   在 `.env` 檔案中設定以下環境變數：
 
-You can choose [Heroku](https://www.heroku.com/) or [Render](http://render.com/)
+   - `ChannelSecret`: 你的 LINE Channel Secret。
+   - `ChannelAccessToken`: 你的 LINE Channel Access Token。
 
-### 4. Deploy this on Heroku
+   如果你沒有這些訊息，你需要到 LINE Developer Portal 建立一個新的 channel 並獲取這些訊息。
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+## 運行
 
-- Input `Channel Secret` and `Channel Access Token`.
-- Input [OpenAI API Key](https://platform.openai.com/account/api-keys) in `OPENAI_API_KEY`.
-- Remember your heroku, ID.
+1. **啟動 FastAPI 應用程式**
 
-### 5. Go to LINE Bot Dashboard, setup basic API
+   使用以下命令啟動應用程式：
 
-- Setup your basic account information. Here is some info you will need to know.
-- `Callback URL`: <https://{YOUR_HEROKU_SERVER_ID}.herokuapp.com/callback>
+   ```bash
+   uvicorn main:app --reload
+   ```
 
-It all done.
+2. **設定 webhook URL**
 
-License
----------------
+   在你的 LINE channel 中設定 webhook URL，使其指向你的 FastAPI 應用程式。你可以在本地運行這個應用程式，但請記住，你可能需要一個公開的 URL（比如通過 ngrok 創建）才能讓 LINE Messenger 成功發送請求。
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+## 功能
 
-<http://www.apache.org/licenses/LICENSE-2.0>
+- 當 LINE 使用者傳送訊息給你的 LINE bot，這個應用程式會接收這些訊息，使用 embedchain 處理這些訊息，並向使用者傳送相應的回覆。
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+```
+
+這個 README 文件應該能在 Github 上展示得很好，並提供所有必要的信息，關於如何安裝、設定和運行你的專案。
