@@ -103,7 +103,7 @@ async def handle_callback(request: Request):
             continue
 
         tool_result = naval_chat_bot.query(
-            event.message.tex+" reply in zh-tw, result")
+            event.message.text + " reply in zh-tw, result")
 
         await line_bot_api.reply_message(
             event.reply_token,
