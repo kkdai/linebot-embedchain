@@ -56,9 +56,10 @@ async_http_client = AiohttpAsyncHttpClient(session)
 line_bot_api = AsyncLineBotApi(channel_access_token, async_http_client)
 parser = WebhookParser(channel_secret)
 
-# Embedchain
+# Embedchain App
 naval_chat_bot = App()
 
+# Add tools to the app
 naval_chat_bot.add(
     "web_page", "https://tw.linebiz.com/column/LINEOA-2023-Price-Plan/")
 
