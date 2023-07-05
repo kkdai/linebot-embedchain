@@ -1,7 +1,6 @@
 line-bot-sdk
 fastapi
 uvicorn[standard]
-nltk
 langchain
 embedchain
 openai
