@@ -102,7 +102,8 @@ async def handle_callback(request: Request):
         if not isinstance(event.message, TextMessage):
             continue
 
-        tool_result = naval_chat_bot.query(event.message.text)
+        tool_result = naval_chat_bot.query(
+            event.message.text + " reply in zh-tw, result")
 
         await line_bot_api.reply_message(
             event.reply_token,

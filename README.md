@@ -23,6 +23,14 @@
 
    如果你沒有這些訊息，你需要到 LINE Developer Portal 建立一個新的 channel 並獲取這些訊息。
 
+## 部署在 Heroku
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+
+- Input `Channel Secret` and `Channel Access Token`.
+- Input [OpenAI API Key](https://platform.openai.com/account/api-keys) in `OPENAI_API_KEY`.
+- Remember your heroku, ID.
+
 ## 運行
 
 1. **啟動 FastAPI 應用程式**
