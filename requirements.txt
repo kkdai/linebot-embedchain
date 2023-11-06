@@ -5,3 +5,4 @@ langchain
 embedchain
 openai
 pydantic
+embedchain[dataloaders]
