@@ -3,6 +3,6 @@ fastapi
 uvicorn[standard]
 langchain
 embedchain
-openai
+openai==0.28.1
 pydantic
 embedchain[dataloaders]
